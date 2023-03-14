@@ -1,0 +1,86 @@
+{
+"editor.fontSize": 16,
+"editor.fontFamily": "Operator Mono",
+"editor.scrollbar.horizontal": "hidden",
+"editor.scrollbar.vertical": "hidden",
+"editor.minimap.enabled": false,
+"editor.overviewRulerBorder": false,
+"editor.lineNumbers": "relative",
+"workbench.sideBar.location": "right",
+"workbench.activityBar.visible": false,
+"workbench.editor.showIcons": false,
+"workbench.editor.showTabs": false,
+"breadcrumbs.enabled": false,
+"[typescriptreact]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[typescript]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[json]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[css]": {
+  "editor.defaultFormatter": "stylelint.vscode-stylelint"
+},
+"[html]": {
+  "editor.defaultFormatter": "vscode.html-language-features"
+},
+"workbench.colorTheme": "Gruvbox Dark (Medium)",
+"vim.insertModeKeyBindings": [
+  {
+    "before": ["j", "k"],
+    "after": ["<esc>"]
+  }
+],
+  "vim.statusBarColorControl": true,
+"vim.statusBarColors.visual": "#b55d02",
+"vim.statusBarColors.visualblock": "#a02236",
+"vim.statusBarColors.visualline": "#9C195B",
+"vim.statusBarColors.replace": "#6f1f45",
+"vim.statusBarColors.insert": "#6d8400",
+"vim.statusBarColors.normal": "#007575",
+"search.exclude": {
+  "**/node_modules": true,
+  "**/bower_components": true,
+  "**/*.code-search": true,
+  "*/**/node_modules/": true,
+  "wp-includes/": true,
+  "wp-admin/": true,
+  "wp-*.*": true,
+  "wp-config.*": true,
+  "xmlrpc.php": true,
+  ".vscode/": true,
+  "*/**/cache/": true,
+  "*/**/uploads/": true,
+  "*/**/infinitewp/": true,
+  "*/**/.github/": true,
+  "*/**/build/": true
+},
+"files.exclude": {
+  "**/.git": true,
+  "**/.svn": true,
+  "**/.hg": true,
+  "**/CVS": true,
+  "**/.DS_Store": true,
+  "**/Thumbs.db": true,
+  "*/**/node_modules/": true,
+  "wp-includes/": true,
+  "wp-admin/": true,
+  "wp-config.*": false,
+  "xmlrpc.php": true,
+  ".vscode/": true,
+  "*/**/cache/": true,
+  "*/**/uploads/": true,
+  "*/**/infinitewp/": true,
+  "*/**/.github/": true
+},
+"workbench.colorCustomizations": {
+"statusBar.background": "#9C195B",
+"statusBar.noFolderBackground": "#9C195B",
+"statusBar.debuggingBackground": "#9C195B"
+},
+"[jsonc]": {
+  "editor.defaultFormatter": "vscode.json-language-features"
+}
+}
