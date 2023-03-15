@@ -18,10 +18,10 @@ function _G.OpenDailyNote()
 		cmd = command,
 		hidden = true,
 		direction = "float",
-		close_on_exit = false,
+		close_on_exit = true,
         shell = vim.o.shell,
 		on_open = function(term)
-			vim.api.nvim_buf_set_keymap(term.bufnr, "t", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+			vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<Leader>n", "<cmd>close<CR>", { noremap = true, silent = true })
 		end,
 	})
 
@@ -29,3 +29,4 @@ function _G.OpenDailyNote()
 end
 
 vim.api.nvim_create_user_command('DailyNote', OpenDailyNote, { desc = "Open daily note *.md in floaterm"})
+vim.keymap.set('', '<Leader>n', ':DailyNote<CR>')
