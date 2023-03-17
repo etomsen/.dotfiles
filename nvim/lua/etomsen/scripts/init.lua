@@ -12,7 +12,7 @@ vim.api.nvim_create_user_command("ReloadConfig", ReloadConfig, { desc = "reload 
 
 function _G.OpenDailyNote()
     local path = vim.env.MYVIMRC
-    local command = path:match("(.*/)") .. "lua/etomsen/scripts/note.sh"
+    local command = path:match("(.*/)") .. "lua/etomsen/scripts/note.sh --directory " .. os.getenv("HOME") 
     local Terminal = require("toggleterm.terminal").Terminal
 	local run = Terminal:new({
 		cmd = command,

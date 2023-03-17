@@ -1,6 +1,12 @@
 #!/bin/sh
+while getopts u:a:f: flag
+do
+    case "${flag}" in
+        d) directory=${OPTARG};;
+    esac
+done
 
-noteFilename="$HOME/Documents/notes/src/note-$(date +%Y-%m-%d).md"
+noteFilename="$HOME/Documents/notes/diary/note-$(date +%Y-%m-%d).md"
 
 if [ ! -f $noteFilename ]; then
   echo "# Notes for $(date +%Y-%m-%d)" > $noteFilename
