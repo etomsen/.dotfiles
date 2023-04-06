@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# macvim
+abbr mvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
+
 #git
 abbr gc='git commit -m' 
 abbr gca='git commit --amend -m' 

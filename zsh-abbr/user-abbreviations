@@ -1,3 +1,4 @@
+abbr "mvim"="/Applications/MacVim.app/Contents/MacOS/Vim -g"
 abbr "an"="ansible"
 abbr "ang"="ansible-galaxy"
 abbr "anp"="ansible-playbook"

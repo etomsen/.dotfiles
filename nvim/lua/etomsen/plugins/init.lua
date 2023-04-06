@@ -10,13 +10,13 @@ Plug 'nvim-lua/plenary.nvim'
 Plug('akinsho/toggleterm.nvim', { tag = "*" })
 Plug('folke/todo-comments.nvim')
 Plug('nvim-telescope/telescope.nvim', {
-    tag = '0.1.0'
+  tag = '0.1.0'
 })
-Plug('nvim-telescope/telescope-fzf-native.nvim', {run = 'make'})
+Plug('nvim-telescope/telescope-fzf-native.nvim', { run = 'make' })
 Plug('xiyaowong/nvim-transparent', {
-    config = function()
-        vim.g.transparent_enabled = true
-    end
+  config = function()
+    vim.g.transparent_enabled = true
+  end
 })
 Plug 'morhetz/gruvbox'
 
@@ -29,6 +29,5 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'ray-x/lsp_signature.nvim'
-
+Plug 'joeveiga/ng.nvim'
 Plug.ends()
-
