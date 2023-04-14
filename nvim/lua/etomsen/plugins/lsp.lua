@@ -23,21 +23,6 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
   buf_set_keymap("n", "<leader>dn", "<cmd>lua vim.diagnostic.goto_next({ float = false })<CR>", opts)
   buf_set_keymap("n", "<leader>dN", "<cmd>lua vim.diagnostic.goto_prev({ float = false })<CR>", opts)
-
-  -- Auto formatting
-  if client.server_capabilities.documentFormattingProvider and client.name ~= "sumneko_lua" then
-    vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format({
-          filter = function(cli)
-            return cli.name == client.name
-          end,
-        })
-      end,
-      group = group,
-    })
-  end
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())

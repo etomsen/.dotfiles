@@ -1,7 +1,8 @@
 local Plug = require 'usermod.vimplug'
 
 Plug.begin('~/.config/nvim/plugged')
-
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
@@ -30,4 +31,5 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'joeveiga/ng.nvim'
+Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug.ends()
