@@ -3,15 +3,14 @@ local function k(mode, lhs, rhs, opts)
 end
 
 -- buffers
-k('n', '<S-l>', ':bnext<CR>')
-k('n', '<S-h>', ':bprevious<CR>')
+k('n', '<A-Tab>', ':bnext<CR>')
+k('n', '<A-S-Tab>', ':bprevious<CR>')
 
 -- save and quit
 k('n', '<leader>s', ':write<CR>')
 k('n', '<leader>S', ':wall<CR>')
 k('n', '<leader>w', ':bd<CR>')
 k('n', '<leader>W', ':bd!<CR>')
-
 
 -- search
 k('n', '<leader>nn', ':nohlsearch<CR>')
@@ -21,7 +20,7 @@ k('i', 'jk', '<esc>')
 k('i', 'jj', '<esc>')
 k('', '<leader>lf', ':Lf<CR>')
 k('', '<leader>e', ':vs %:h<CR>')
-k('', '<leader>b', ':vs .<CR>')
+k('', '<leader>w', ':bw <CR>') -- close the buffer
 k('', '<leader>f', '<cmd> Telescope find_files<CR>')
 k('', '<leader>g', '<cmd> Telescope live_grep<CR>')
 k('', '<leader>j', '*``cgn')                       -- replace word under cursor, . = next replace, n = skip
@@ -52,7 +51,7 @@ k('n', 'X', '"_x', { noremap = true })
 k('', '<Leader>ev', ':tabnew $MYVIMRC<CR>')
 
 -- Source Vim config file.
-k('', '<Leader>sv', ':source $MYVIMRC<CR>')
+k('', '<Leader>sv', ':ReloadConfig <CR>')
 
 -- Toggle spell check.
 k('', '<F5>', ':setlocal spell!<CR>')

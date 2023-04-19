@@ -8,6 +8,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'ap/vim-buftabline'
 Plug('akinsho/toggleterm.nvim', { tag = "*" })
 Plug('folke/todo-comments.nvim')
 Plug('nvim-telescope/telescope.nvim', {
