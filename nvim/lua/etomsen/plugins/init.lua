@@ -7,10 +7,17 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
+Plug 'kyazdani42/nvim-tree.lua' -- navigation
+-- Plug 'Yggdroot/indentLine' -- vertical indentation lines, substituted by blankline
+Plug 'airblade/vim-gitgutter' -- git changes shown inline, integrated with airline
+Plug 'vim-airline/vim-airline' -- a bottom bar with info
+Plug 'lukas-reineke/indent-blankline.nvim'
+-- Plug 'HerringtonDarkholme/yats.vim' -- typescript syntax fix and more... but way too heavy
 Plug 'nvim-lua/plenary.nvim'
-Plug 'ap/vim-buftabline'
-Plug('akinsho/toggleterm.nvim', { tag = "*" })
-Plug('folke/todo-comments.nvim')
+Plug ('nvim-treesitter/nvim-treesitter')
+Plug 'ap/vim-buftabline' -- a top bar with opened buffers
+Plug('akinsho/toggleterm.nvim', { tag = "*" }) -- an intergrated termninal with toggle
+Plug('folke/todo-comments.nvim') -- grep on comments
 Plug('nvim-telescope/telescope.nvim', {
   tag = '0.1.0'
 })
@@ -21,7 +28,6 @@ Plug('xiyaowong/nvim-transparent', {
   end
 })
 Plug 'morhetz/gruvbox'
-
 -- LSP
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'

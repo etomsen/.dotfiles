@@ -19,7 +19,7 @@ k('v', '<C-r>', '"hy:%s/<C-r>h//gc<left><left><left>')
 k('i', 'jk', '<esc>')
 k('i', 'jj', '<esc>')
 k('', '<leader>lf', ':Lf<CR>')
-k('', '<leader>e', ':vs %:h<CR>')
+k('', '<leader>ef', ':vs %:h<CR>')
 k('', '<leader>w', ':bw <CR>') -- close the buffer
 k('', '<leader>f', '<cmd> Telescope find_files<CR>')
 k('', '<leader>g', '<cmd> Telescope live_grep<CR>')
