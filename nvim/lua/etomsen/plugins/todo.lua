@@ -1,24 +1,22 @@
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
-local todo = require("todo-comments")
+local ok, todo = pcall(require, "todo-comments")
+if not ok then return end
 
 todo.setup({
+  signs = true,
 	highlight = {
 		keyword = "bg",
 	},
 	keywords = {
-		fix = {
-			icon = " ",
-			color = "error",
-			alt = { "FIXME", "fixme", "BUG", "bug", "FIXIT", "fixit", "ISSUE", "issue" },
-		},
-		todo = { icon = " ", color = "info" },
-		hack = { icon = " ", color = "warning" },
-		warn = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
-		perf = { icon = " ", alt = { "OPTIM", "optim", "PERFORMANCE", "performance", "OPTIMIZE", "optimize" } },
-		note = { icon = " ", color = "hint", alt = { "INFO", "info" } },
-		test = { icon = "⏲ ", color = "test", alt = { "TESTING", "testing", "PASSED", "passed", "FAILED", "failed" } },
+		TODO = { icon = "?", color = "info", alt = { "// TODO:" } },
+		FIX = { icon = "☠", color = "error", alt = { "// FIXME:", "// BUG:", "// FIXIT:", "// ISSUE:" } },
+		WARN = { icon = "⚠", color = "warning", alt = { "// WARNING:", "// XXX:" } },
+		PERF = { icon = "⏲ ", alt = { "// OPTIM", "// PERFORMANCE", "// OPTIMIZE"}  },
+		NOTE = { icon = "✎", color = "hint", alt = { "// INFO"} },
+		TEST = { icon = "✓", color = "test", alt = { "// TESTING", "// PASSED", "// FAILED"} },
 	},
+  merge_keywords = false,
 	search = {
 		command = "rg",
 		args = {
