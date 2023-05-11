@@ -15,6 +15,7 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 -- Plug 'HerringtonDarkholme/yats.vim' -- typescript syntax fix and more... but way too heavy
 Plug 'nvim-lua/plenary.nvim'
 Plug ('nvim-treesitter/nvim-treesitter')
+Plug 'ThePrimeagen/harpoon' -- recent files
 Plug 'ap/vim-buftabline' -- a top bar with opened buffers
 Plug('akinsho/toggleterm.nvim', { tag = "*" }) -- an intergrated termninal with toggle
 Plug('folke/todo-comments.nvim') -- grep on comments
@@ -30,6 +31,7 @@ Plug('xiyaowong/nvim-transparent', {
 Plug 'morhetz/gruvbox'
 -- LSP
 Plug 'neovim/nvim-lspconfig'
+Plug 'MunifTanjim/prettier.nvim' -- prettier for LSP
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
