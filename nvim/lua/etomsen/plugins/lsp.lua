@@ -21,6 +21,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
   buf_set_keymap("n", "<leader>lr", "<cmd>LspRestart<CR>", opts)
   buf_set_keymap("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+  buf_set_keymap("n", "<leader>dc", "<cmd>lua vim.diagnostic.hide()<CR>", opts)
   buf_set_keymap("n", "<leader>dn", "<cmd>lua vim.diagnostic.goto_next({ float = false })<CR>", opts)
   buf_set_keymap("n", "<leader>dN", "<cmd>lua vim.diagnostic.goto_prev({ float = false })<CR>", opts)
 end
@@ -38,12 +39,11 @@ lsp.tsserver.setup {
     "--stdio"
   }
 }
-
 -- lua
-lsp.lua_ls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+lsp.lua_ls.setup{}
+
+--python
+lsp.pyright.setup{}
 
 -- html
 lsp.html.setup {
