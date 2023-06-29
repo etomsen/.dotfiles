@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# delete branch
 gbd() {
 	local branch_to_delete
 	branch_to_delete=$(git branch | fzf | xargs)
