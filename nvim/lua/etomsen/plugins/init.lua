@@ -40,4 +40,5 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'joeveiga/ng.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'APZelos/blamer.nvim'
 Plug.ends()

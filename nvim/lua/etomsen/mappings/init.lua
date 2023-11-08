@@ -7,14 +7,13 @@ k('n', '<A-Tab>', ':bnext<CR>')
 k('n', '<A-S-Tab>', ':bprevious<CR>')
 
 -- save and quit
-k('n', '<leader>s', ':write<CR>')
-k('n', '<leader>S', ':wall<CR>')
 k('n', '<leader>w', ':bd<CR>')
 k('n', '<leader>W', ':bd!<CR>')
 
 -- search
 k('n', '<leader>nn', ':nohlsearch<CR>')
-k('v', '<C-r>', '"hy:%s/<C-r>h//gc<left><left><left>')
+k('v', '<leader>r', '"hy:%s/<C-r>h//gc<left><left><left>')
+k('n', '<leader>r', ':%s//<left>')
 
 k('i', 'jk', '<esc>')
 k('i', 'jj', '<esc>')
