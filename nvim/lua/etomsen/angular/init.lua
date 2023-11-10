@@ -1,4 +1,6 @@
 local vim = vim
+local M = {}
+
 local path = require("plenary.path")
 
 local window = require("etomsen.angular.window")
@@ -35,7 +37,7 @@ local scanDir = function(dir)
     return result
 end
 
-function _G.NgToggleStyle()
+M.NgOpenStyle = function()
   local filename, buf_path = getBufferFileName()
 
 	local file_to_open = nil
@@ -61,31 +63,21 @@ function _G.NgToggleStyle()
 end
 
 
-function _G.NgToggleTemplate()
+M.NgOpenTemplate = function() 
   local filename, buf_path = getBufferFileName()
-	local file_to_open = nil
-	if string.match(filename, "^.+%.ts$") then
-		file_to_open = buf_path:parent() .. "/" .. string.match(filename, "(.-)%.[a-z]+$") .. ".html"
-  end
   if string.match(filename, "^.+%.html$") then
-    file_to_open = buf_path:parent() .. "/" .. string.match(filename, "(.-)%.[a-z]+$") .. ".ts"
-	end
-
-  if not file_to_open then
-    vim.notify("File is not *.ts or *.html" .. filename, vim.log.levels.WARN)
     return
-  end
-
+	end
+  local file_to_open = buf_path:parent() .. "/" .. string.match(filename, "(.-)%.[a-z]+$") .. ".html"
 	local exists = vim.fn.filereadable(file_to_open)
 	if exists == 0 then
-		vim.notify("File doesn't exist: " .. file_to_open, vim.log.levels.WARN)
+		vim.notify("Template doesn't exist: " .. file_to_open, vim.log.levels.WARN)
 		return
 	end
-
 	load_file_into_buffer(file_to_open)
 end
 
-function _G.NgToggleSpec()
+M.NgOpenSpec = function()
   local filename, buf_path = getBufferFileName()
 
 	local full_destination = nil
@@ -113,8 +105,8 @@ function _G.NgToggleSpec()
 	load_file_into_buffer(full_destination)
 end
 
-function _G.NgShowDirFiles()
-  local filename, buf_path = getBufferFileName()
+M.showDirFiles = function()
+  local _, buf_path = getBufferFileName()
   local dir = buf_path:parent():absolute()
   local matches = scanDir(dir)
   local matchesCount = #matches
@@ -125,15 +117,12 @@ function _G.NgShowDirFiles()
   end
 end
 
+M.setup = function()
+  vim.api.nvim_create_user_command('NgOpenTemplate', M.NgOpenTemplate, { desc = "Open template file for *.ts"})
+  vim.api.nvim_create_user_command('NgOpenStyle', M.NgOpenStyle, { desc = "Open style file for *.html"})
+  vim.api.nvim_create_user_command('NgOpenSpec', M.NgOpenSpec, { desc = "Open spec file for *.ts"})
+  vim.api.nvim_create_user_command('NgShowDirFiles', M.showDirFiles, { desc = "Show dir files"})
+end
 
-vim.api.nvim_create_user_command('NgToggleTemplate', NgToggleTemplate, { desc = "Toggle template file for *.ts"})
-vim.keymap.set('', '<Leader>at', ': NgToggleTemplate<CR>')
+return M;
 
-vim.api.nvim_create_user_command('NgToggleStyle', NgToggleStyle, { desc = "Toggle style file for *.html"})
-vim.keymap.set('', '<Leader>ac', ':NgToggleStyle<CR>')
-
-vim.api.nvim_create_user_command('NgToggleSpec', NgToggleSpec, { desc = "Toggle spec file for *.ts"})
-vim.keymap.set('', '<Leader>as', ':NgToggleSpec<CR>')
-
-vim.api.nvim_create_user_command('NgShowDirFiles', NgShowDirFiles, { desc = "Show dir files"})
-vim.keymap.set('', '<Leader>ad', ':NgShowDirFiles<CR>')
