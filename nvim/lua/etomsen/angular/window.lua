@@ -228,6 +228,7 @@ end
 -- Closing the window
 function M.close_window()
 	vim.api.nvim_win_close(win, true)
+	otherInstance.setOtherFileToBuffer(lastfile, currentBuffer)
 end
 
 -- Opening the file
@@ -251,7 +252,8 @@ function M.open_file_vs(pos)
 end
 
 -- Main function to open the window
-function M.open_window(files, callerBuffer)
+function M.open_window(files, callerInstance, callerBuffer)
+  otherInstance = callerInstance
 	currentBuffer = callerBuffer
 
 	colSeparator = "|"

@@ -2,7 +2,6 @@ local vim = vim
 local M = {}
 
 local path = require("plenary.path")
-
 local window = require("etomsen.angular.window")
 
 local function load_file_into_buffer(file)
@@ -37,72 +36,36 @@ local scanDir = function(dir)
     return result
 end
 
-M.NgOpenStyle = function()
+
+local openFile = function(fileExt)
   local filename, buf_path = getBufferFileName()
-
-	local file_to_open = nil
-	if string.match(filename, "^.+%.scss$") then
-		file_to_open = buf_path:parent() .. "/" .. string.match(filename, "(.-)%.[a-z]+$") .. ".html"
-  end
-  if string.match(filename, "^.+%.ts$") or string.match(filename, "^.+%.html$") then
-    file_to_open = buf_path:parent() .. "/" .. string.match(filename, "(.-)%.[a-z]+$") .. ".scss"
-	end
-
-  if not file_to_open then
-    vim.notify("File is not *.ts or *.scss or *.html" .. filename, vim.log.levels.WARN)
-    return
-  end
-
-	local exists = vim.fn.filereadable(file_to_open)
-	if exists == 0 then
-		vim.notify("File doesn't exist: " .. file_to_open, vim.log.levels.WARN)
-		return
-	end
-
-	load_file_into_buffer(file_to_open)
-end
-
-
-M.NgOpenTemplate = function() 
-  local filename, buf_path = getBufferFileName()
-  if string.match(filename, "^.+%.html$") then
+  local fileExtPattern = string.gsub(fileExt, ".", "%.")
+  if string.match(filename, "^.+%" .. fileExtPattern .. "$") then
     return
 	end
-  local file_to_open = buf_path:parent() .. "/" .. string.match(filename, "(.-)%.[a-z]+$") .. ".html"
+  local file_to_open = buf_path:parent() .. "/" .. string.match(filename, "(.-)%.[a-z]+$") .. fileExt
 	local exists = vim.fn.filereadable(file_to_open)
 	if exists == 0 then
-		vim.notify("Template doesn't exist: " .. file_to_open, vim.log.levels.WARN)
+		vim.notify(file_to_open .. " doen't exist", vim.log.levels.WARN)
 		return
 	end
 	load_file_into_buffer(file_to_open)
 end
 
-M.NgOpenSpec = function()
-  local filename, buf_path = getBufferFileName()
+M.openStyle = function()
+  openFile(".scss")
+end
 
-	local full_destination = nil
-	if string.match(filename, ".spec.ts$") then
-		-- if the current file is a spec file, then jump to the file it is testing
-		local file_name = string.match(filename, "(.-)%.spec")
-		full_destination = buf_path:parent() .. "/" .. file_name .. ".ts"
-	else
-		-- if the current file is not a spec file, then jump to the spec file
-		local filename_without_ext = string.match(filename, "(.-)%.ts$")
-    if not filename_without_ext then
-      vim.notify("File is not a typescript: " .. filename, vim.log.levels.WARN)
-      return
-    end
-    full_destination = buf_path:parent() .. "/" .. filename_without_ext .. ".spec.ts"
-	end
+M.openComponent = function() 
+  openFile(".ts")
+end
 
-	local exists = vim.fn.filereadable(full_destination)
-	-- don't open a buffer if the file doesn't exist since you may end up creating a file without knowing it
-	if exists == 0 then
-		vim.notify("File doesn't exist: " .. full_destination, vim.log.levels.WARN)
-		return
-	end
+M.openTemplate = function() 
+  openFile(".html")
+end
 
-	load_file_into_buffer(full_destination)
+M.openSpec = function()
+  openFile(".spec.ts")
 end
 
 M.showDirFiles = function()
@@ -111,16 +74,17 @@ M.showDirFiles = function()
   local matches = scanDir(dir)
   local matchesCount = #matches
   if matchesCount > 0 then
-    window.open_window(matches,  vim.api.nvim_get_current_buf())
+    window.open_window(matches, M, vim.api.nvim_get_current_buf())
   else
-    print("No files found.")
+    print("No files in the dir")
   end
 end
 
 M.setup = function()
-  vim.api.nvim_create_user_command('NgOpenTemplate', M.NgOpenTemplate, { desc = "Open template file for *.ts"})
-  vim.api.nvim_create_user_command('NgOpenStyle', M.NgOpenStyle, { desc = "Open style file for *.html"})
-  vim.api.nvim_create_user_command('NgOpenSpec', M.NgOpenSpec, { desc = "Open spec file for *.ts"})
+  vim.api.nvim_create_user_command('NgOpenComponent', M.openComponent, { desc = "Open component file"})
+  vim.api.nvim_create_user_command('NgOpenTemplate', M.openTemplate, { desc = "Open template file"})
+  vim.api.nvim_create_user_command('NgOpenStyle', M.openStyle, { desc = "Open style file"})
+  vim.api.nvim_create_user_command('NgOpenSpec', M.openSpec, { desc = "Open spec file"})
   vim.api.nvim_create_user_command('NgShowDirFiles', M.showDirFiles, { desc = "Show dir files"})
 end
 
