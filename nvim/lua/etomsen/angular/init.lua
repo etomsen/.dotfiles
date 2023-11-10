@@ -74,7 +74,7 @@ M.showDirFiles = function()
   local matches = scanDir(dir)
   local matchesCount = #matches
   if matchesCount > 0 then
-    window.open_window(matches, M, vim.api.nvim_get_current_buf())
+    window.open_window(matches, vim.api.nvim_get_current_buf())
   else
     print("No files in the dir")
   end

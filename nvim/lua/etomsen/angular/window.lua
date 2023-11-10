@@ -1,26 +1,24 @@
 local M = {}
 
-local otherInstance, currentBuffer
+local currentBuffer
 
-local lastfile = nil
 local buf, win
 local matches
 
 local width, height
-
-local border
-local colSeparator = "|"
-local newFileIndicator
+local disabled_chars = {}
 local keybindings = {
-  ["<cr>"] = "open_file()",
+  ["<cr>"] = "open_item()",
   ["<esc>"] = "close_window()",
-  o = "open_file()",
-  t = "open_file_tabnew()",
+  o = "open_item()",
+  t = "open_item_tabnew()",
   q = "close_window()",
-  v = "open_file_vs()",
-  s = "open_file_sp()",
+  v = "open_item_vs()",
+  s = "open_item_sp()",
 }
-
+local border = "solid"
+local colSeparator = "|"
+local newFileIndicator = "(* new *)"
 
 local maxContextLength = 0
 local shortcut_chars = {
@@ -53,9 +51,6 @@ local shortcut_chars = {
 	"9",
 }
 
--- Disable the following keys in the window
-local disabled_chars = {}
-
 local function _getMaxContextLength(files)
 	local result = 0
 	for _, file in pairs(files) do
@@ -66,22 +61,13 @@ local function _getMaxContextLength(files)
 	return result
 end
 
--- Actually opening the file
-local function _openFile(command, position)
-	-- Getting the current line number
-	local pos = position or vim.api.nvim_win_get_cursor(0)[1]
-
-	-- reading the filename from the matches table
-	if matches[pos] ~= nil then
-		local filename = matches[pos].filename
-		lastfile = filename
-
-		M.close_window()
-		vim.api.nvim_set_current_buf(currentBuffer)
-
-		-- actual opening
-		-- util.openFile(command, filename, otherInstance.getOptions()["hooks"].onOpenFile)
-	end
+local function openFile(openCommand, filename, shouldOpenInexist)
+  local exists = (vim.fn.filereadable(filename) == 1 and true or false)
+  local shouldOpenFile = exists ~= 0 or shouldOpenInexist
+  if shouldOpenFile then
+    vim.api.nvim_command(":" .. openCommand .. " " .. filename)
+    vim.g.other_lastopened = filename
+  end
 end
 
 -- Set the keybindings
@@ -100,12 +86,6 @@ local function _set_mappings()
 			noremap = true,
 			silent = true,
 		})
-
-		-- make sure that the defined config keybindings are not part of the file shortcuts
-		-- local pos_shortcut_chars = util.indexOf(shortcut_chars, k)
-		-- if pos_shortcut_chars ~= nil then
-		-- 	table.remove(shortcut_chars, pos_shortcut_chars)
-		-- end
 	end
 
 	-- add shortcut bindings to the files list
@@ -114,23 +94,40 @@ local function _set_mappings()
 			buf,
 			"n",
 			v,
-			':lua require"etomsen.angular.window".open_file(' .. i .. ")<cr>",
+			':lua require"etomsen.angular.window".open_item(' .. i .. ")<cr>",
 			{ nowait = true, noremap = true, silent = true }
 		)
 		vim.api.nvim_buf_set_keymap(
 			buf,
 			"n",
 			v:upper(),
-			':lua require"etomsen.angular.window".open_file_sp(' .. i .. ")<cr>",
+			':lua require"etomsen.angular.window".open_item_sp(' .. i .. ")<cr>",
 			{ nowait = true, noremap = true, silent = true }
 		)
 		vim.api.nvim_buf_set_keymap(
 			buf,
 			"n",
 			"<c-" .. v .. ">",
-			':lua require"etomsen.angular.window".open_file_vs(' .. i .. ")<cr>",
+			':lua require"etomsen.angular.window".open_item_vs(' .. i .. ")<cr>",
 			{ nowait = true, noremap = true, silent = true }
 		)
+	end
+end
+
+local function openItemAtPosition(command, position)
+	-- Getting the current line number
+	local pos = position or vim.api.nvim_win_get_cursor(0)[1]
+
+	-- reading the filename from the matches table
+	if matches[pos] ~= nil then
+		local filename = matches[pos].filename
+		lastfile = filename
+
+		M.close_window()
+		vim.api.nvim_set_current_buf(currentBuffer)
+
+		-- actual opening
+		openFile(command, filename, true)
 	end
 end
 
@@ -228,45 +225,33 @@ end
 -- Closing the window
 function M.close_window()
 	vim.api.nvim_win_close(win, true)
-	otherInstance.setOtherFileToBuffer(lastfile, currentBuffer)
 end
 
--- Opening the file
-function M.open_file(pos)
-	_openFile(":e", pos)
+function M.open_item(pos)
+	openItemAtPosition(":e", pos)
 end
 
--- Opening the file in a new tab
-function M.open_file_tabnew(pos)
-	_openFile(":tabnew", pos)
+function M.open_item_tabnew(pos)
+	openItemAtPosition(":tabnew", pos)
 end
 
--- Opening the file in a regular split
-function M.open_file_sp(pos)
-	_openFile(":sp", pos)
+function M.open_item_sp(pos)
+	openItemAtPosition(":sp", pos)
 end
 
 -- Opening the file in a vertical split
-function M.open_file_vs(pos)
-	_openFile(":vs", pos)
+function M.open_item_vs(pos)
+	openItemAtPosition(":vs", pos)
 end
 
 -- Main function to open the window
-function M.open_window(files, callerInstance, callerBuffer)
-  otherInstance = callerInstance
+function M.open_window(files, callerBuffer)
 	currentBuffer = callerBuffer
 
-	colSeparator = "|"
-	newFileIndicator = "(* new *)"
-	border = "solid"
-  width = 0.7
-
-
-	width = math.floor(width * vim.api.nvim_get_option("columns"))
+	width = math.floor(0.7 * vim.api.nvim_get_option("columns"))
 	height = 2
 
 	maxContextLength = _getMaxContextLength(files)
-	lastfile = nil
 
 	_buildWindow(#files)
 	_set_mappings()
