@@ -5,3 +5,4 @@ zsh/.zsh_sessions/
 zsh/.zsh_history
 zsh/.zcompdump
 nvim/plugged/
+tmux/plugins/

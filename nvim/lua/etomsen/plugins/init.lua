@@ -38,7 +38,10 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'ray-x/lsp_signature.nvim'
-Plug 'joeveiga/ng.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
-Plug 'APZelos/blamer.nvim'
+Plug 'APZelos/blamer.nvim' -- git blame
+Plug 'preservim/vimux' -- tmux
+Plug 'joeveiga/ng.nvim' -- to run tmux from vim
+Plug 'christoomey/vim-tmux-navigator' -- to navigate vim splits together with tmux
+Plug 'tyewang/vimux-jest-test' -- tmux jest runner
 Plug.ends()
