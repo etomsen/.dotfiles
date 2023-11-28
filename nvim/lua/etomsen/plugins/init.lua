@@ -7,7 +7,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive' -- git
-Plug 'kyazdani42/nvim-tree.lua' -- navigation
 Plug 'airblade/vim-gitgutter' -- git changes shown inline, integrated with airline
 Plug 'vim-airline/vim-airline' -- a bottom bar with info
 Plug 'nvim-lua/plenary.nvim'
@@ -24,7 +23,9 @@ Plug('xiyaowong/nvim-transparent', {
     vim.g.transparent_enabled = true
   end
 })
-Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox' -- theme
+Plug 'stevearc/oil.nvim' -- file management
+
 -- LSP
 Plug 'neovim/nvim-lspconfig'
 Plug 'MunifTanjim/prettier.nvim' -- prettier for LSP
