@@ -39,6 +39,13 @@ lsp.tsserver.setup {
     "--stdio"
   }
 }
+
+
+-- plugin for nvim dev with lua
+require('neodev').setup({
+  -- add any options here, or leave empty to use the default settings
+})
+
 -- lua
 lsp.lua_ls.setup{}
 
