@@ -86,9 +86,9 @@ for function in $ZDOTDIR/functions/*; do
   source $function
 done
 
-export NOTES_DIRECTORY='/Users/etomsen/Documents/notes'
-
 # plugins
 source /opt/homebrew/share/zsh-abbr/zsh-abbr.zsh 2>/dev/null
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+
+# JDK
 export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"

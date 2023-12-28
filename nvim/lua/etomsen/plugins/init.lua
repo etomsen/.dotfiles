@@ -28,16 +28,21 @@ local plugins = {
   'princejoogie/dir-telescope.nvim',
   'morhetz/gruvbox', -- theme
   'stevearc/oil.nvim', -- file management
-  -- LSP and syntax
-  'neovim/nvim-lspconfig',
+  -- LSP
+  "williamboman/mason.nvim",
+   "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+  'nvimtools/none-ls.nvim',
+  -- Prettier
   'MunifTanjim/prettier.nvim', -- prettier for LSP
-  'folke/neodev.nvim', -- nvim dev helpers for LSP
+  -- CMP
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-buffer',
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-cmdline',
   'hrsh7th/nvim-cmp',
   'ray-x/lsp_signature.nvim',
+  -- treesitter
   'nvim-treesitter/nvim-treesitter', -- better syntax highlighting
   -- GIT
   'APZelos/blamer.nvim', -- git blame

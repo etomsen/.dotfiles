@@ -17,7 +17,8 @@ configs.setup {
     "typescript",
     "yaml",
     "python",
-    "sql"
+    "sql",
+    "angular"
 	},
 
 	sync_install = true,
