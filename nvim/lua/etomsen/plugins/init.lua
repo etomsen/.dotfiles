@@ -35,6 +35,14 @@ local plugins = {
   "nvimtools/none-ls.nvim",
   -- Prettier
   "MunifTanjim/prettier.nvim", -- prettier for LSP
+  -- vim-wiki
+  {
+    "vimwiki/vimwiki",
+    init = function()
+      vim.g.vimwiki_list = { { path = "~/prj/tinkoff/notes", syntax = "markdown", ext = ".md" } }
+    end,
+  },
+  "mtdl9/vim-log-highlighting",
   -- CMP
   "hrsh7th/cmp-nvim-lsp",
   "hrsh7th/cmp-buffer",
