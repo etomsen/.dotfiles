@@ -17,14 +17,10 @@ k('n', '<leader>r', ':%s//<left>')
 
 k('i', 'jk', '<esc>')
 k('i', 'jj', '<esc>')
-k('', '<leader>lf', ':Lf<CR>')
-k('', '<leader>ef', ':vs %:h<CR>')
+k('', '<leader>ls', ':vs %:h<CR>')
 k('', '<leader>w', ':bw <CR>') -- close the buffer
-k('', '<leader>f', '<cmd> Telescope find_files<CR>')
-k('', '<leader>g', '<cmd> Telescope live_grep<CR>')
 k('', '<leader>j', '*``cgn')                       -- replace word under cursor, . = next replace, n = skip
 k('n', '<Leader>cp', ':let @0 = expand("%")<CR>')  -- Copy the current buffer's path to your clipboard.
-k('', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>') -- rename a variable
 k('', '<C-Tab>', '<C-w>w')                         -- Cycle through splits.
 
 --Toggle visually showing all whitespace characters.
@@ -55,8 +51,8 @@ k('', '<Leader>sv', ':ReloadConfig <CR>')
 -- Toggle spell check.
 k('', '<F5>', ':setlocal spell!<CR>')
 
--- Diagnostic
 k('n', '<space>e', ':lua vim.diagnostic.open_float(0, {scope="line"})<CR>')
 
 -- LSP
 k('n', '<space>a', ':lua vim.lsp.buf.code_action()<CR>')
+k('', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>') -- rename a variable

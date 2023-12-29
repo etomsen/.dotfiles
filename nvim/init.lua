@@ -15,7 +15,7 @@ require "etomsen.plugins.harpoon"
 require "etomsen.plugins.angular"
 require "etomsen.plugins.oil"
 require "etomsen.plugins.none-ls"
-require "etomsen.telescope"
+require "etomsen.plugins.telescope"
 require "etomsen.mappings"
 require "etomsen.colors"
 
