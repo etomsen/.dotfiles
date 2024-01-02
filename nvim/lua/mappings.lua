@@ -45,14 +45,7 @@ k('n', 'X', '"_x', { noremap = true })
 -- Edit Vim config file in a new tab.
 k('', '<Leader>ev', ':tabnew $MYVIMRC<CR>')
 
--- Source Vim config file.
-k('', '<Leader>sv', ':ReloadConfig <CR>')
-
 -- Toggle spell check.
 k('', '<F5>', ':setlocal spell!<CR>')
 
-k('n', '<space>e', ':lua vim.diagnostic.open_float(0, {scope="line"})<CR>')
 
--- LSP
-k('n', '<space>a', ':lua vim.lsp.buf.code_action()<CR>')
-k('', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>') -- rename a variable

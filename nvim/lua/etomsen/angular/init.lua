@@ -2,7 +2,6 @@ local vim = vim
 local M = {}
 
 local path = require("plenary.path")
-local window = require("etomsen.angular.window")
 
 local function load_file_into_buffer(file)
 	local uri = vim.uri_from_fname(file)
@@ -18,24 +17,6 @@ local getBufferFileName = function()
 	local filename = string.match(relative_path, "([^/]+)$")
   return filename, buf_path
 end
-
-local scanDir = function(dir)
-    local result, popen = {}, io.popen
-    local pfile = popen('ls -a "' .. dir .. '"')
-    if not pfile then
-      return {}
-    end
-    for filename in pfile:lines() do
-      table.insert(result, {
-        context = 'context',
-        filename = filename,
-        exists = true
-      })
-    end
-    pfile:close()
-    return result
-end
-
 
 local openFile = function(fileExt)
   local filename, buf_path = getBufferFileName()
@@ -68,24 +49,11 @@ M.openSpec = function()
   openFile(".spec.ts")
 end
 
-M.showDirFiles = function()
-  local _, buf_path = getBufferFileName()
-  local dir = buf_path:parent():absolute()
-  local matches = scanDir(dir)
-  local matchesCount = #matches
-  if matchesCount > 0 then
-    window.open_window(matches, vim.api.nvim_get_current_buf())
-  else
-    print("No files in the dir")
-  end
-end
-
 M.setup = function()
   vim.api.nvim_create_user_command('NgOpenComponent', M.openComponent, { desc = "Open component file"})
   vim.api.nvim_create_user_command('NgOpenTemplate', M.openTemplate, { desc = "Open template file"})
   vim.api.nvim_create_user_command('NgOpenStyle', M.openStyle, { desc = "Open style file"})
   vim.api.nvim_create_user_command('NgOpenSpec', M.openSpec, { desc = "Open spec file"})
-  vim.api.nvim_create_user_command('NgShowDirFiles', M.showDirFiles, { desc = "Show dir files"})
 end
 
 return M;
