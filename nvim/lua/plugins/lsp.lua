@@ -1,3 +1,10 @@
+local npm_global_dir = function()
+    -- root_dir = require("lspconfig/util").root_pattern("nx.json"),
+    -- often ts version does not match the ngserver one. so one need to
+    -- install the proper version using npm aliases
+    return  "/Users/e.tomsen/.nvm/versions/node/v14.21.3/bin"
+end
+
 return {
   {
     "williamboman/mason.nvim",
@@ -45,10 +52,10 @@ return {
           "typescriptreact",
           "typescript.tsx",
         },
-        root_dir = require("lspconfig/util").root_pattern("nx.json"),
+        root_dir = npm_global_dir,
         cmd = {
-          "typescript-language-server",
-          "--stdio",
+                    "typescript-language-server",
+                    "--stdio",
         },
       })
 
@@ -74,7 +81,6 @@ return {
         end,
       })
       local opts = { noremap = true, silent = true }
-      vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
       vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
       vim.keymap.set("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
       vim.keymap.set("n", "<Leader>ca", ":lua vim.lsp.buf.code_action()<CR>")

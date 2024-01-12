@@ -7,3 +7,6 @@ zsh/.zcompdump
 nvim/plugged/
 tmux/plugins/
 nvim/lua/.luarc.json
+lazygit/state.yml
+lazygit
+glab-cli/config.yml

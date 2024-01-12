@@ -139,6 +139,6 @@ return {
     })
 
     vim.keymap.set("n", "<Leader>e", "<CMD>Oil<CR>", { desc = "Open current file directory" })
-    vim.keymap.set("n", "<Leader>r", "<CMD>tabnew<CR><BAR><CMD>Oil .<CR>", { desc = "Open root directory" })
+    vim.keymap.set("n", "<Leader>ee", "<CMD>tabnew<CR><BAR><CMD>Oil .<CR>", { desc = "Open root directory" })
   end
 }

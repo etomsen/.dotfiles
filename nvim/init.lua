@@ -17,3 +17,5 @@ vim.opt.rtp:prepend(lazypath)
 require "options"
 require "mappings"
 require("lazy").setup("plugins")
+-- load all mappings from all the loaded plugins
+require('langmapper').automapping({ global = true, buffer = true })

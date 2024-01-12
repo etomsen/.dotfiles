@@ -48,4 +48,17 @@ k('', '<Leader>ev', ':tabnew $MYVIMRC<CR>')
 -- Toggle spell check.
 k('', '<F5>', ':setlocal spell!<CR>')
 
+-- Quickfix list toggle
+k('', '<Leader>qf', function()
+    local qf_winid = vim.fn.getqflist({ winid = 0 }).winid;
+    local action = qf_winid > 0 and 'cclose' or 'copen';
+    vim.cmd('botright '..action);
+end)
+
+
+-- Paste link in markdown format
+k('n', '<Leader>K', 'ciw[<C-r>"](<Esc>"*pa )<Esc><CR>', {noremap = true})
+k('n', '<Leader>dK', 'di[hvf)p<CR>', {noremap = true})
+k('v', '<Leader>K', 'c[<C-r>"](<Esc>"*pa )<Esc><CR>', {noremap = true})
+
 
