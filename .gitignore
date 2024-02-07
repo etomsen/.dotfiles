@@ -10,3 +10,5 @@ nvim/lua/.luarc.json
 lazygit/state.yml
 lazygit
 glab-cli/config.yml
+lazygit-catpuccin
+kitty-themes
