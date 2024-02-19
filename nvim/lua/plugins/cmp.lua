@@ -18,10 +18,15 @@ return {
   },
   {
     "hrsh7th/nvim-cmp",
-    config = function()
+        config = function()
             local cmp = require("cmp")
+
             require("luasnip.loaders.from_vscode").lazy_load()
 
+            local default_sources = cmp.config.sources({}, {
+                { name = "path" },
+                { name = "buffer" },
+            })
             cmp.setup({
                 snippet = {
                     expand = function(args)
@@ -56,23 +61,42 @@ return {
                     completion = cmp.config.window.bordered(),
                     documentation = cmp.config.window.bordered(),
                 },
-                sources = cmp.config.sources({
-                    { name = "nvim_lsp" },
-                    { name = "luasnip" },
-                }, {
-                        { name = "path" },
-                        { name = "buffer" },
-                    }),
+                sources = default_sources,
             })
-    end,
-  },
-  {
-    "hrsh7th/cmp-buffer",
-  },
-  {
-    "hrsh7th/cmp-path",
-  },
-  {
-    "hrsh7th/cmp-cmdline"
-  },
+
+            vim.api.nvim_create_autocmd('BufReadPre', {
+                callback = function()
+                    local sources = default_sources
+
+                    local buf_name = vim.api.nvim_buf_get_name(0)
+
+                    if buf_name:find("^oil://") ~= nil then
+                        sources[#sources+1] = {name = "nvim_lsp"}
+                        sources[#sources+1] = {name = "luasnip"}
+                    end
+                    cmp.setup.buffer({
+                        sources = sources
+                    })
+                end,
+            })
+        end
+    },
+    {
+        "hrsh7th/cmp-buffer",
+    },
+    {
+        "hrsh7th/cmp-path",
+    },
+    {
+        "hrsh7th/cmp-cmdline",
+        config = function()
+            local cmp = require("cmp")
+            cmp.setup.cmdline('/', {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = {
+                    { name = 'buffer' }
+                }
+            })
+        end
+    },
 }
