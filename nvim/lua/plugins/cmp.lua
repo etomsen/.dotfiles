@@ -27,6 +27,16 @@ return {
                 { name = "path" },
                 { name = "buffer" },
             })
+
+            local i = 1
+            while (i <= #default_sources) do
+                if default_sources[i].name == 'null_ls.builtins.completion.spell' then
+                    i = i + 1
+                else
+                    table.remove(default_sources, i)
+                end
+            end
+
             cmp.setup({
                 snippet = {
                     expand = function(args)

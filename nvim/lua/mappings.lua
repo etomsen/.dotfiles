@@ -14,6 +14,7 @@ k('n', '<leader>W', ':bd!<CR>')
 k('n', '<leader>nn', ':nohlsearch<CR>')
 k('v', '<leader>r', '"hy:%s/<C-r>h//gc<left><left><left>')
 k('n', '<leader>r', ':%s//<left>')
+k('n', '<leader>vp', 'viwpviwy')
 
 k('i', 'jk', '<esc>')
 k('i', 'jj', '<esc>')
