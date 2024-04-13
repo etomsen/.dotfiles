@@ -20,6 +20,7 @@ k('i', 'jk', '<esc>')
 k('i', 'jj', '<esc>')
 k('', '<leader>ls', ':vs %:h<CR>')
 k('', '<leader>w', ':bw <CR>') -- close the buffer
+k('', '<Leader>W', ':%bd|e# <CR>');
 k('', '<leader>j', '*``cgn')                       -- replace word under cursor, . = next replace, n = skip
 k('n', '<Leader>cp', ':let @0 = expand("%")<CR>')  -- Copy the current buffer's path to your clipboard.
 k('', '<C-Tab>', '<C-w>w')                         -- Cycle through splits.

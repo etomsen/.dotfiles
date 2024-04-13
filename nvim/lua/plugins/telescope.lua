@@ -47,5 +47,16 @@ return {
             })
             require("telescope").load_extension("ui-select")
         end
+    },
+    {
+        "princejoogie/dir-telescope.nvim",
+        requires = {"nvim-telescope/telescope.nvim"},
+        config = function()
+            require("dir-telescope").setup({
+                hidden = true,
+                no_ignore = false,
+                show_preview = true,
+            })
+        end,
     }
 }

@@ -92,3 +92,7 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2
 
 # JDK
 export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+
+
+# mcfly history completion <Ctrl>-r 
+eval "$(mcfly init zsh)"
