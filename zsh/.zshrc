@@ -68,7 +68,8 @@ export PATH="/opt/homebrew/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 source $(brew --prefix nvm)/nvm.sh
 
-# fzf ignores
+# fzf
+eval "$(fzf --zsh)"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
@@ -93,6 +94,3 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2
 # JDK
 export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 
-
-# mcfly history completion <Ctrl>-r 
-eval "$(mcfly init zsh)"
