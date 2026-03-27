@@ -9,9 +9,9 @@ set.number = true
 set.relativenumber = true
 set.scrolloff = 7
 set.expandtab = true
-set.tabstop = 2
+set.tabstop = 4
 set.softtabstop = 2
-set.shiftwidth = 2
+set.shiftwidth = 4
 set.expandtab = true
 set.autoindent = true
 set.fileformat = "unix"
@@ -39,4 +39,8 @@ if vim.fn.has('gui_running') == 1 then
   set.columns = 108
   set.linespace = 0
   set.guifont = "Operator_Mono_Light:h18"
+end
+
+if vim.fn.exists('+guioptions') == 1 then
+  vim.opt.guioptions:append('e')
 end

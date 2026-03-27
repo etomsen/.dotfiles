@@ -1,5 +1,6 @@
 return {
-  "nvim-treesitter/nvim-treesitter", -- better syntax highlighting
+  "nvim-treesitter/nvim-treesitter",
+  dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
   config = function()
     local ok, configs = pcall(require, "nvim-treesitter.configs")
     if not ok then

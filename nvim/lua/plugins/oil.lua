@@ -1,24 +1,49 @@
+local function get_git_ignored_files_in(dir)
+    local found = vim.fs.find(".git", {
+        upward = true,
+        path = dir,
+    })
+    if #found == 0 then
+        return {}
+    end
+
+    local cmd = string.format(
+        'git -C %s ls-files --ignored --exclude-standard --others --directory | grep -v "/.*\\/"',
+        dir
+    )
+
+    local handle = io.popen(cmd)
+    if handle == nil then
+        return
+    end
+
+    local ignored_files = {}
+    for line in handle:lines "*l" do
+        line = line:gsub("/$", "")
+        table.insert(ignored_files, line)
+    end
+    handle:close()
+
+    return ignored_files
+end
+
+
+
 return {
   "stevearc/oil.nvim",
   config = function()
     require('oil').setup({
-      -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
-      -- Set to false if you still want to use netrw.
       default_file_explorer = true,
-      -- Id is automatically added at the beginning, and name at the end
-      -- See :help oil-columns
       columns = {
         "icon",
         -- "permissions",
         -- "size",
         -- "mtime",
       },
-      -- Buffer-local options to use for oil buffers
       buf_options = {
         buflisted = false,
         bufhidden = "hide",
       },
-      -- Window-local options to use for oil buffers
       win_options = {
         wrap = false,
         signcolumn = "no",
@@ -29,11 +54,8 @@ return {
         conceallevel = 3,
         concealcursor = "nvic",
       },
-      -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
       delete_to_trash = false,
-      -- Skip the confirmation popup for simple operations
       skip_confirm_for_simple_edits = false,
-      -- Selecting a new/moved/renamed file or directory will prompt you to save changes first
       prompt_save_on_select_new_entry = true,
       -- Oil will automatically delete hidden buffers after this delay
       -- You can set the delay to false to disable cleanup entirely
@@ -67,14 +89,16 @@ return {
       use_default_keymaps = true,
       view_options = {
         -- Show files and directories that start with "."
-        show_hidden = false,
+        show_hidden = true,
         -- This function defines what is considered a "hidden" file
         is_hidden_file = function(name, bufnr)
-          return vim.startswith(name, ".")
+	return false
+            -- local ignored_files = get_git_ignored_files_in(oil.get_current_dir())
+            -- return vim.tbl_contains(ignored_files, name) or vim.startswith(name, ".")
         end,
         -- This function defines what will never be shown, even when `show_hidden` is set
         is_always_hidden = function(name, bufnr)
-          return false
+          return name == ".." or name == ".git"
         end,
         sort = {
           -- sort order can be "asc" or "desc"
@@ -139,6 +163,6 @@ return {
     })
 
     vim.keymap.set("n", "<Leader>e", "<CMD>Oil<CR>", { desc = "Open current file directory" })
-    vim.keymap.set("n", "<Leader>r", "<CMD>tabnew<CR><BAR><CMD>Oil .<CR>", { desc = "Open root directory" })
+    vim.keymap.set("n", "<Leader>ee", "<CMD>Oil .<CR>", { desc = "Open root directory" })
   end
 }

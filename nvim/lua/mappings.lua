@@ -14,11 +14,13 @@ k('n', '<leader>W', ':bd!<CR>')
 k('n', '<leader>nn', ':nohlsearch<CR>')
 k('v', '<leader>r', '"hy:%s/<C-r>h//gc<left><left><left>')
 k('n', '<leader>r', ':%s//<left>')
+k('n', '<leader>wp', 'viwpviwy')
 
 k('i', 'jk', '<esc>')
 k('i', 'jj', '<esc>')
 k('', '<leader>ls', ':vs %:h<CR>')
 k('', '<leader>w', ':bw <CR>') -- close the buffer
+k('', '<Leader>W', ':%bd|e# <CR>');
 k('', '<leader>j', '*``cgn')                       -- replace word under cursor, . = next replace, n = skip
 k('n', '<Leader>cp', ':let @0 = expand("%")<CR>')  -- Copy the current buffer's path to your clipboard.
 k('', '<C-Tab>', '<C-w>w')                         -- Cycle through splits.
@@ -47,5 +49,21 @@ k('', '<Leader>ev', ':tabnew $MYVIMRC<CR>')
 
 -- Toggle spell check.
 k('', '<F5>', ':setlocal spell!<CR>')
+
+-- Quickfix list toggle
+k('', '<Leader>qf', function()
+    local qf_winid = vim.fn.getqflist({ winid = 0 }).winid;
+    local action = qf_winid > 0 and 'cclose' or 'copen';
+    vim.cmd('botright '..action);
+end)
+
+-- yank in global registry
+k('v', 'gy', '"*y');
+k('n', 'gy', 'viw"*y');
+
+-- Paste link in markdown format
+k('n', '<Leader>K', 'ciw[<C-r>"](<Esc>"*pa )<Esc><CR>', {noremap = true})
+k('n', '<Leader>dK', 'di[hvf)p<CR>', {noremap = true})
+k('v', '<Leader>K', 'c[<C-r>"](<Esc>"*pa )<Esc><CR>', {noremap = true})
 
 
