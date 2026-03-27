@@ -1,0 +1,18 @@
+[editor]
+default-yank-register = "+"
+line-number = "relative"
+
+[editor.cursor-shape]
+insert = "bar"
+
+[keys.normal.space]
+o = "file_picker_in_current_buffer_directory"
+
+[keys.select]
+"^" = "goto_first_nonwhitespace"
+"$" = "goto_line_end"
+
+[keys.normal]
+"#" = "toggle_comments"
+"^" = "goto_first_nonwhitespace"
+"$" = "goto_line_end"

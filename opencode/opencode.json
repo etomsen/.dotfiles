@@ -1,0 +1,30 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "mcp": {
+        "chrome-devtools": {
+            "type": "local",
+            "command": ["npx", "-y", "chrome-devtools-mcp@latest"]
+        },
+        "nx": {
+            "type": "local",
+            "command": ["npx", "-y", "nx-mcp@latest"]
+        },
+        "storybook": {
+            "type": "local",
+            "command": ["npx", "-y", "storybook-mcp@latest"],
+            "enabled": true,
+            "environment": {
+                "STORYBOOK_URL": "http://localhost:6006/index.json"
+            }
+        },
+        "playwright": {
+            "type": "local",
+            "command": ["npx", "-y", "@playwright/mcp@latest"],
+            "enabled": true
+        },
+        "context7": {
+            "type": "remote",
+            "url": "https://mcp.context7.com/mcp"
+        }
+    }
+}

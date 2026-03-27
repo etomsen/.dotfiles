@@ -1,0 +1,35 @@
+[language-server]
+typescript-language-server = { command = "typescript-language-server", args = ["--stdio"] }
+angular-language-server = { command = "ngserver", args = ["--stdio"], environment = { "NG_LANGUAGE_SERVICE_LOG" = "foreground" } }
+emmet-ls = { command = "emmet-ls", args = ["--stdio"] }
+eslint = { command = "vscode-eslint-language-server", args = ["--stdio"] }
+prettier = { command = "prettier", args = ["--stdin-filepath", "file.ts"] }
+
+[[language]]
+name = "typescript"
+scope = "source.ts"
+file-types = ["ts", "tsx"]
+language-servers = ["typescript-language-server", "eslint", "emmet-ls"]
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+auto-format = true
+
+[[language]]
+name = "angular"
+scope = "source.ts"  # Angular uses TypeScript files
+file-types = ["component.ts", "service.ts"]
+language-servers = ["angular-language-server"]
+auto-format = true
+
+[[language]]
+name = "html"
+language-servers = ["emmet-ls"]
+formatter = { command = "prettier", args = ["--parser", "html"] }
+auto-format = true
+
+[[language]]
+name = "css"
+language-servers = ["emmet-ls"]
+formatter = { command = "prettier", args = ["--parser", "css"] }
+auto-format = true
+
+file-types = ["ts", "typescript", "html"]

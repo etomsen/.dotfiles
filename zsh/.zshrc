@@ -76,6 +76,9 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export BAT_THEME='Visual Studio Dark+'
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
+# lazygit
+export CONFIG_DIR="$HOME/.config/lazygit"
+
 # python
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
@@ -92,3 +95,13 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2
 
 # JDK
 export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+## Siemens SSH
+## Запуск ssh-agent, если не активен
+if [[ -z "$SSH_AUTH_SOCK" ]]; then
+  eval "$(ssh-agent -s)"
+fi
+
+# Добавление ключа без ошибок
+ssh-add -q ~/.ssh/id_ed25519_siemens 2>/dev/null
