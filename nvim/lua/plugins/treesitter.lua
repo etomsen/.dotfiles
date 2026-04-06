@@ -25,6 +25,8 @@ return {
         "python",
         "sql",
         "angular",
+        "markdown",
+        "markdown_inline",
       },
 
       sync_install = true,

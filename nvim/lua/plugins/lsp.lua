@@ -9,7 +9,7 @@ return {
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "html", "pylsp", "ts_ls" },
+                ensure_installed = { "lua_ls", "html", "pylsp", "ts_ls", "marksman" },
             })
         end,
     },
@@ -52,10 +52,14 @@ return {
             -- Disable angularls (ngserver not installed)
             vim.lsp.enable("angularls", false)
 
+            -- markdown
+            vim.lsp.config("marksman", {})
+
             -- Enable all configured servers
             vim.lsp.enable("lua_ls")
             vim.lsp.enable("html")
             vim.lsp.enable("ts_ls")
+            vim.lsp.enable("marksman")
 
             -- LSP mappings
             local opts = { noremap = true, silent = true }

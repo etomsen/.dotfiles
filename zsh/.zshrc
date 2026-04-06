@@ -92,6 +92,8 @@ done
 # plugins
 source /opt/homebrew/share/zsh-abbr/zsh-abbr.zsh 2>/dev/null
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+source ~/.config/zsh/custom/plugins/nx-completion/nx-completion.plugin.zsh 2>/dev/null
+# git clone git@github.com:jscutlery/nx-completion.git ./custom/plugins/nx-completion
 
 # JDK
 export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
@@ -105,3 +107,7 @@ fi
 
 # Добавление ключа без ошибок
 ssh-add -q ~/.ssh/id_ed25519_siemens 2>/dev/null
+
+# opencode
+export PATH=~/.opencode/bin:$PATH
+

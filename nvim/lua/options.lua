@@ -20,6 +20,7 @@ set.smartindent = true
 set.wildmenu = true       -- display matching files, use :b to list files in a buffer
 set.splitbelow = true
 set.splitright = true
+set.conceallevel = 2
 
 g.mapleader = ","
 

@@ -1,10 +1,9 @@
 lastupdatecheck: 0
 recentrepos:
-    - /Users/daubihe/.config
     - /Users/daubihe/prj/siemens/re-finflow
     - /Users/daubihe/prj/siemens/json-schema-to-typescript
 startuppopupversion: 5
-didshowhunkstaginghint: false
+didshowhunkstaginghint: true
 lastversion: 0.55.1
 customcommandshistory:
     - git reset --hard origin/feat/se-ui
