@@ -36,6 +36,15 @@ return {
         additional_vim_regex_highlighting = false,
       },
 
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = "an",
+          node_incremental = "an",
+          node_decremental = "in",
+        },
+      },
+
       textobjects = {
         select = {
           enable = true,
