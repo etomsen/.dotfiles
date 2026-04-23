@@ -9,12 +9,38 @@ return {
             "nvim-treesitter/nvim-treesitter",
         },
         opts = {
+            icons = {
+                passed = "+",
+                failed = "x",
+                running = "~",
+                skipped = "-",
+                unknown = "?",
+                non_collapsible = " ",
+                collapsed = ">",
+                expanded = "v",
+                child_prefix = " ",
+                child_indent = " ",
+                final_child_prefix = " ",
+                final_child_indent = " ",
+            },
             adapters = {
                 -- Jest adapter configuration
                 ["neotest-jest"] = {
-                    jestCommand = "node 'node_modules/.bin/jest'  --",
-                    -- jestConfigFile = "jest.config.js", -- adjust if needed
-                    cwd = function(path) return vim.fn.getcwd() end,
+                    jestCommand = "node_modules/.bin/jest",
+                    jestConfigFile = function(file)
+                        local dir = vim.fn.fnamemodify(file, ":h")
+                        while dir ~= "/" do
+                            for _, name in ipairs({ "jest.config.cts", "jest.config.ts", "jest.config.js", "jest.config.cjs" }) do
+                                local config = dir .. "/" .. name
+                                if vim.fn.filereadable(config) == 1 then
+                                    return config
+                                end
+                            end
+                            dir = vim.fn.fnamemodify(dir, ":h")
+                        end
+                        return vim.fn.getcwd() .. "/jest.config.ts"
+                    end,
+                    cwd = function() return vim.fn.getcwd() end,
                 },
             },
             status = { virtual_text = true },
@@ -29,6 +55,31 @@ return {
                 end,
             },
         },
+        config = function(_, opts)
+            -- Patch: don't escape slashes in file paths (breaks Jest 30 path matching)
+            local jest_util = require("neotest-jest.util")
+            local original_escape = jest_util.escapeTestPattern
+            jest_util.escapeTestPattern = function(s)
+                if s:match("^/") or s:match("^%a:\\") then
+                    return s
+                end
+                return original_escape(s)
+            end
+
+            local neotest = require("neotest")
+            local adapters = {}
+            for name, config in pairs(opts.adapters or {}) do
+                local adapter = require(name)(config)
+                table.insert(adapters, adapter)
+            end
+            opts.adapters = adapters
+            neotest.setup(opts)
+
+            vim.api.nvim_create_user_command("Jest", function()
+                neotest.run.run(vim.fn.expand("%"))
+                neotest.summary.open()
+            end, { desc = "Run Jest tests for current file" })
+        end,
         keys = {
             { "<leader>tt", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Test: Run File" },
             { "<leader>tr", function() require("neotest").run.run() end, desc = "Test: Run Nearest" },
