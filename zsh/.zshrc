@@ -111,3 +111,7 @@ ssh-add -q ~/.ssh/id_ed25519_siemens 2>/dev/null
 # opencode
 export PATH=~/.opencode/bin:$PATH
 
+# proxy toggles
+alias proxyoff='networksetup -setwebproxystate "Wi-Fi" off && networksetup -setsecurewebproxystate "Wi-Fi" off'
+alias proxyon='networksetup -setwebproxystate "Wi-Fi" on && networksetup -setsecurewebproxystate "Wi-Fi" on'
+
