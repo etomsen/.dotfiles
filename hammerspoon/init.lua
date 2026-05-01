@@ -1,44 +1,24 @@
 hs.hotkey.bind({"cmd", "shift"}, "L", function()
-    -- Save current clipboard so we can restore it after pasting
-    local savedClipboard = hs.pasteboard.getContents()
+    local contents = hs.pasteboard.getContents()
 
-    -- Trigger Cmd+C to copy the current selection
-    hs.eventtap.keyStroke({"cmd"}, "c")
-
-    -- Give the system a moment to populate the clipboard
-    hs.timer.usleep(100000)  -- 100ms
-
-    local selection = hs.pasteboard.getContents()
-
-    if not selection or selection == "" or selection == savedClipboard then
-        hs.alert.show("No text selected")
+    if not contents or contents == "" then
+        hs.alert.show("Clipboard is empty")
         return
     end
 
-    -- Trim whitespace/newlines
-    selection = selection:gsub("^%s+", ""):gsub("%s+$", "")
+    contents = contents:gsub("^%s+", ""):gsub("%s+$", "")
 
-    if selection == "" then
-        hs.alert.show("Selection was empty after trimming")
+    if contents == "" then
+        hs.alert.show("Clipboard was empty after trimming")
         return
     end
 
-    -- URL-encode the selection (the [[ ]] need encoding too)
-    local encoded = hs.http.encodeForQuery("[[" .. selection .. "]]")
+    local encoded = hs.http.encodeForQuery("[[" .. contents .. "]]")
     local link = "hammerspoon://note?link=" .. encoded
 
-    -- Paste the link directly, replacing the selection
     hs.pasteboard.setContents(link)
-    hs.eventtap.keyStroke({"cmd"}, "v")
 
-    -- Give paste a moment to consume the clipboard, then restore the original
-    hs.timer.doAfter(0.2, function()
-        if savedClipboard then
-            hs.pasteboard.setContents(savedClipboard)
-        end
-    end)
-
-    hs.alert.show("Pasted: " .. link, 2)
+    hs.alert.show("Copied: " .. link, 2)
 end)
 
 hs.urlevent.bind("note", function(eventName, params)
